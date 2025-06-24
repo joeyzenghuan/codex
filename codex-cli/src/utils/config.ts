@@ -97,6 +97,10 @@ export function getBaseUrl(provider: string = "openai"): string | undefined {
   const providersConfig = config.providers ?? providers;
   const providerInfo = providersConfig[provider.toLowerCase()];
   if (providerInfo) {
+    // Debug log
+    if (provider.toLowerCase() === "azure") {
+      console.log("[DEBUG] Azure baseURL:", providerInfo.baseURL);
+    }
     return providerInfo.baseURL;
   }
 
@@ -116,6 +120,10 @@ export function getApiKey(provider: string = "openai"): string | undefined {
   if (providerInfo) {
     if (providerInfo.name === "Ollama") {
       return process.env[providerInfo.envKey] ?? "dummy";
+    }
+    // Debug log
+    if (provider.toLowerCase() === "azure") {
+      console.log("[DEBUG] Azure envKey:", providerInfo.envKey, "value:", process.env[providerInfo.envKey]);
     }
     return process.env[providerInfo.envKey];
   }

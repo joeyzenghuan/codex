@@ -33,6 +33,14 @@ export function createOpenAIClient(
   }
 
   if (config.provider?.toLowerCase() === "azure") {
+    // Debug info for Azure client creation
+    console.log("[DEBUG] Creating AzureOpenAI client with:");
+    console.log("  apiKey:", getApiKey(config.provider));
+    console.log("  baseURL:", getBaseUrl(config.provider));
+    console.log("  apiVersion:", AZURE_OPENAI_API_VERSION);
+    console.log("  timeout:", OPENAI_TIMEOUT_MS);
+    console.log("  defaultHeaders:", headers);
+
     return new AzureOpenAI({
       apiKey: getApiKey(config.provider),
       baseURL: getBaseUrl(config.provider),
@@ -41,6 +49,13 @@ export function createOpenAIClient(
       defaultHeaders: headers,
     });
   }
+
+  // Debug info for OpenAI client creation
+  console.log("[DEBUG] Creating OpenAI client with:");
+  console.log("  apiKey:", getApiKey(config.provider));
+  console.log("  baseURL:", getBaseUrl(config.provider));
+  console.log("  timeout:", OPENAI_TIMEOUT_MS);
+  console.log("  defaultHeaders:", headers);
 
   return new OpenAI({
     apiKey: getApiKey(config.provider),
